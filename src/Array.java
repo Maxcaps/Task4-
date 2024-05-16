@@ -1,27 +1,43 @@
 import java.util.Arrays;
 
 public class Array {
-    private int[] data;
+    private final int[] data;
 
     public Array(int size) {
+        if (size < 0) {
+            throw new ArrayInitializationException("Size must be non-negative");
+        }
         this.data = new int[size];
     }
 
     public Array(int[] initialData) {
+        if (initialData == null) {
+            throw new ArrayInitializationException("Initial data cannot be null");
+        }
         this.data = Arrays.copyOf(initialData, initialData.length);
     }
 
     public Array(Array another) {
+        if (another == null) {
+            throw new ArrayInitializationException("Another array cannot be null");
+        }
         this.data = Arrays.copyOf(another.data, another.data.length);
     }
 
     public int get(int index) {
+        if (index >= data.length || index < 0) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
         return data[index];
     }
 
     public void set(int index, int value) {
+        if (index >= data.length || index < 0) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
         data[index] = value;
     }
+
 
     public int size() {
         return data.length;
